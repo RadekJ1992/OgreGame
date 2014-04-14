@@ -8,12 +8,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\BaseApplication.cpp" />
-    <ClCompile Include="..\TutorialApplication.cpp" />
+    <ClCompile Include="..\MinecraftApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BaseApplication.h" />
-    <ClInclude Include="..\TutorialApplication.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="..\MinecraftApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OgreGame.rc">

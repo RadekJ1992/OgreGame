@@ -9,24 +9,31 @@ This source file is part of the
  //  // _` | '__/ _ \ \ \/  \/ / | |/ / |
 / \_// (_| | | |  __/  \  /\  /| |   <| |
 \___/ \__, |_|  \___|   \/  \/ |_|_|\_\_|
-      |___/                              
-      Tutorial Framework
-      http://www.ogre3d.org/tikiwiki/
+	  |___/                              
+	  Tutorial Framework
+	  http://www.ogre3d.org/tikiwiki/
 -----------------------------------------------------------------------------
 */
-#ifndef __TutorialApplication_h_
-#define __TutorialApplication_h_
+#ifndef __MinecraftApplication_h_
+#define __MinecraftApplication_h_
 
 #include "BaseApplication.h"
 
-class TutorialApplication : public BaseApplication
+class MinecraftApplication : public BaseApplication
 {
 public:
-    TutorialApplication(void);
-    virtual ~TutorialApplication(void);
+	MinecraftApplication(void);
+	virtual ~MinecraftApplication(void);
 
 protected:
-    virtual void createScene(void);
+	virtual void createViewports(void);
+	virtual void createCamera(void);
+	virtual void createScene(void);
+
+	Ogre::SceneNode* cubeNode;
+
+private:
+	void addSpotlight(const Ogre::String name, const Ogre::Real xPos, const Ogre::Real zPos);
 };
 
 #endif // #ifndef __TutorialApplication_h_
