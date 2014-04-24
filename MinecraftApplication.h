@@ -18,6 +18,9 @@ This source file is part of the
 #define __MinecraftApplication_h_
 
 #include "BaseApplication.h"
+#include "Cube.h"
+#include "CubeFactory.h"
+#pragma message ("MinecraftApplication object is defined")
 
 class MinecraftApplication : public BaseApplication
 {
@@ -30,7 +33,7 @@ protected:
 	virtual void createCamera(void);
 	virtual void createScene(void);
 
-	Ogre::SceneNode* cubeNode;
+	//Ogre::SceneNode* cubeNode;
 
 private:
 	void addSpotlight(const Ogre::String name, const Ogre::Real xPos, const Ogre::Real zPos);

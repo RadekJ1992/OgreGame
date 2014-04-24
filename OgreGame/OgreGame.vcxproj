@@ -12,11 +12,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\BaseApplication.cpp" />
+    <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\CubeFactory.cpp" />
+    <ClCompile Include="..\CubeVisitor.cpp" />
+    <ClCompile Include="..\FireCube.cpp" />
+    <ClCompile Include="..\GoldCube.cpp" />
+    <ClCompile Include="..\MetalCube.cpp" />
     <ClCompile Include="..\MinecraftApplication.cpp" />
+    <ClCompile Include="..\WaterCube.cpp" />
+    <ClCompile Include="..\WoodenCube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BaseApplication.h" />
+    <ClInclude Include="..\Cube.h" />
+    <ClInclude Include="..\CubeFactory.h" />
+    <ClInclude Include="..\CubeVisitor.h" />
+    <ClInclude Include="..\FireCube.h" />
+    <ClInclude Include="..\GoldCube.h" />
+    <ClInclude Include="..\MetalCube.h" />
     <ClInclude Include="..\MinecraftApplication.h" />
+    <ClInclude Include="..\WaterCube.h" />
+    <ClInclude Include="..\WoodenCube.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
