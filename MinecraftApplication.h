@@ -19,7 +19,6 @@ This source file is part of the
 
 #include "BaseApplication.h"
 #include "Cube.h"
-#include "CubeFactory.h"
 #pragma message ("MinecraftApplication object is defined")
 
 class MinecraftApplication : public BaseApplication
