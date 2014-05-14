@@ -13,11 +13,13 @@
   <ItemGroup>
     <ClCompile Include="..\BaseApplication.cpp" />
     <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\HeroClass.cpp" />
     <ClCompile Include="..\MinecraftApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BaseApplication.h" />
     <ClInclude Include="..\Cube.h" />
+    <ClInclude Include="..\HeroClass.h" />
     <ClInclude Include="..\MinecraftApplication.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

@@ -10,12 +10,14 @@
     <ClCompile Include="..\BaseApplication.cpp" />
     <ClCompile Include="..\MinecraftApplication.cpp" />
     <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\HeroClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BaseApplication.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\MinecraftApplication.h" />
     <ClInclude Include="..\Cube.h" />
+    <ClInclude Include="..\HeroClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OgreGame.rc">

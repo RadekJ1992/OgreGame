@@ -29,12 +29,15 @@ MinecraftApplication::~MinecraftApplication(void)
 //-------------------------------------------------------------------------------------
 void MinecraftApplication::createScene(void)
 {
-	
 	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 0 , 0, 0);
 	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 25 , 25, 25);
 	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 25 , 0, 0);
 	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 0 , 25, 0);
 	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 0 , 25, 25);
+
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 100 , 100, 100);
+	
+	HeroClass* hero = new HeroClass(mSceneMgr, mCamera);
 
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
@@ -42,18 +45,7 @@ void MinecraftApplication::createScene(void)
 	addSpotlight("spotLight1", 250.0, 0);
 	addSpotlight("spotLight2", 0, -250.0);
 	addSpotlight("spotLight3", 0, 250.0);
-	addSpotlight("spotLight4", -250.0, 0);
-
-
-	//Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-	//Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-	//plane, 200, 200, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
-
-	//Ogre::Entity* entGround = mSceneMgr->createEntity("GroundEntity", "ground");
-	//mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
-	//entGround->setMaterialName("Examples/BumpyMetal");
-	//entGround->setCastShadows(false);
-	
+	addSpotlight("spotLight4", -250.0, 0);	
 }
 
 void MinecraftApplication::createViewports(void) {
@@ -104,6 +96,7 @@ void MinecraftApplication::addSpotlight(const Ogre::String name, const Ogre::Rea
 	spotLight->setSpotlightRange(Ogre::Degree(180), Ogre::Degree(180));
 
 }
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include "windows.h"

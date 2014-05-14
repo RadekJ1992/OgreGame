@@ -7,6 +7,7 @@
 #include <OgreSceneManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreStringConverter.h>
+#include <sstream>
 
 
 class CubeVisitor;
@@ -24,7 +25,12 @@ protected:
 	Ogre::SceneNode* _cubeNode;
 	Ogre::Entity* _cubeEntity;
 private:
+	Ogre::Vector3 getEntityCenter(Ogre::Entity& _entity);
+	std::vector<std::string> Cube::split(const std::string &s, char delim, std::vector<std::string> &elems);
+	std::vector<std::string> Cube::split(const std::string &s, char delim);
 };
+
+
 
 class GoldCube :
 	public Cube
