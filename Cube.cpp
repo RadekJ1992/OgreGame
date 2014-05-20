@@ -14,7 +14,7 @@ Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real
 	//Ogre::SceneNode::ChildNodeIterator it = mSceneMgr.getRootSceneNode()->getChildIterator();
 	Ogre::SceneManager::MovableObjectIterator it= mSceneMgr.getMovableObjectIterator("Entity");
 	Ogre::Real lowestY = 0;
-	
+
 	while (it.hasMoreElements())
 	{
 		//Ogre::Node* node_ = it.getNext();
@@ -45,7 +45,7 @@ Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real
 			}
 		}
 		catch (...) {    }
-		
+
 	}
 	std::string _name = "Cube:"+Ogre::StringConverter::toString(x,6,0, '_',0) +":"+ Ogre::StringConverter::toString(lowestY,6,0, '_',0)+":"+Ogre::StringConverter::toString(z,6,0, '_',0);
 
@@ -54,7 +54,7 @@ Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real
 	_cubeNode = mSceneMgr.getRootSceneNode()->createChildSceneNode();
 
 	_cubeNode->attachObject(_cubeEntity);
-	
+
 	_cubeNode->showBoundingBox(true);
 
 	_cubeEntity->setCastShadows(true);
@@ -184,7 +184,7 @@ CubeFactory& CubeFactory::getInstance(void)
 }
 
 Cube* CubeFactory::create(std::string s, Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z) {
-	
+
 	if (s == "WoodenCube") {
 		return createWoodenCubeFun(mSceneMgr, x, y, z);
 	} else if (s == "MetalCube") {

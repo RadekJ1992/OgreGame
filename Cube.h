@@ -101,7 +101,7 @@ public:
 	//typedef Cube* (*CreateCubeFun)(const Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	//bool RegisterCube(std::string, CreateCubeFun fun);
 	Cube* create(std::string, Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	
+
 private:
 	//typedef std::map<std::string, CreateCubeFun> Callbacks;
 	//Callbacks callbacks_;
