@@ -21,6 +21,7 @@ public:
 	Ogre::Entity* getCubeEntity(void);
 	Ogre::AxisAlignedBox getBoundingBox(void);
 	virtual void accept(CubeVisitor& cV) = 0;
+	void ground(Ogre::SceneManager& mSceneMgr);
 protected:
 	Ogre::SceneNode* _cubeNode;
 	Ogre::Entity* _cubeEntity;

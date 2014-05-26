@@ -29,6 +29,7 @@ class MinecraftApplication : public BaseApplication
 public:
 	MinecraftApplication(void);
 	virtual ~MinecraftApplication(void);
+	void createWorld();
 
 	enum QueryFlags
 	{
@@ -47,7 +48,7 @@ protected:
 	Ogre::RaySceneQuery* mRayScnQuery;	//pointer to our ray scene query
 	bool bLMouseDown, bRMouseDown;	//true if mouse buttons are held down
 	virtual bool keyPressed( const OIS::KeyEvent& evt );
-    virtual bool keyReleased( const OIS::KeyEvent& evt );
+	virtual bool keyReleased( const OIS::KeyEvent& evt );
 	virtual bool mouseMoved(const OIS::MouseEvent& arg);
 	virtual bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
 	virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);

@@ -28,25 +28,73 @@ MinecraftApplication::~MinecraftApplication(void)
 
 void MinecraftApplication::createViewports(void)
 {
-    // Create one viewport, entire window
-    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
-    vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
-    // Alter the camera aspect ratio to match the viewport
-    mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));    
+	// Create one viewport, entire window
+	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+	vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+	// Alter the camera aspect ratio to match the viewport
+	mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));    
 }
 
+void MinecraftApplication::createWorld() {
+	for (int i = -500; i <= 500; i+=25) {
+		for (int j = -500; j <=500; j+=25) {
+			int randomizedNumber = std::rand()%5;
+			switch (randomizedNumber) {
+			case 4:
+				CubeFactory::getInstance().create("FireCube", *mSceneMgr, i , 0, j);
+				break;
+			case 3:
+				CubeFactory::getInstance().create("MetalCube", *mSceneMgr, i , 0, j);
+				break;
+			case 2: 
+				CubeFactory::getInstance().create("WaterCube", *mSceneMgr, i , 0, j);
+				break;
+			case 1:
+				CubeFactory::getInstance().create("GoldCube", *mSceneMgr, i , 0, j);
+				break;
+			case 0:
+			default:
+				CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, i , 0, j);
+				break;
+			}
+			int littleHillCreatorNumber = std::rand()%100;
+			if (littleHillCreatorNumber > 89) {
+				int anotherRandomizedNumber = std::rand()%5;
+			switch (anotherRandomizedNumber) {
+			case 4:
+				CubeFactory::getInstance().create("FireCube", *mSceneMgr, i , 25, j);
+				break;
+			case 3:
+				CubeFactory::getInstance().create("MetalCube", *mSceneMgr, i , 25, j);
+				break;
+			case 2: 
+				CubeFactory::getInstance().create("WaterCube", *mSceneMgr, i , 25, j);
+				break;
+			case 1:
+				CubeFactory::getInstance().create("GoldCube", *mSceneMgr, i , 25, j);
+				break;
+			case 0:
+			default:
+				CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, i , 25, j);
+				break;
+			}
+			}
+		}
+	}
+}
 //-------------------------------------------------------------------------------------
 void MinecraftApplication::createScene(void)
 {
 	Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
-    Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(16);
+	Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(16);
 	
-	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 10, 30);
+	createWorld();
+	/*CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 10, 30);
 	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 35, 55);
 	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 , 10, 30);
 	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 35, 30);
 	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 35, 55);
-
+	*/
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	
@@ -56,7 +104,7 @@ void MinecraftApplication::createScene(void)
 	addSpotlight("spotLight4", -250.0, 0);
 
 	// Main character
-    hero = new Character ("RoboOgre", mSceneMgr, mCamera);
+	hero = new Character ("RoboOgre", mSceneMgr, mCamera);
 
 }
 
@@ -87,10 +135,10 @@ bool MinecraftApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	}
 
 	if (mWindow->isClosed()) return false;
-    if (mShutDown) return false;
-    mKeyboard->capture();
-    mMouse->capture();
-    mTrayMgr->frameRenderingQueued(evt);
+	if (mShutDown) return false;
+	mKeyboard->capture();
+	mMouse->capture();
+	mTrayMgr->frameRenderingQueued(evt);
 
 	hero->move(evt.timeSinceLastFrame, mDirection, mRotate);
 	hero->ground(evt.timeSinceLastFrame);
@@ -133,12 +181,12 @@ bool MinecraftApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 bool MinecraftApplication::keyPressed(const OIS::KeyEvent& evt)
 {
-    switch (evt.key)
-    {
+	switch (evt.key)
+	{
 		case OIS::KC_ESCAPE: 
 			mShutDown = true;
 			break;
-    
+	
 
 		case OIS::KC_UP:
 		case OIS::KC_W:
@@ -179,9 +227,9 @@ bool MinecraftApplication::keyPressed(const OIS::KeyEvent& evt)
 
 		default:
 			break;
-    }
+	}
 
-    return true;
+	return true;
 }
 
 bool MinecraftApplication::keyReleased(const OIS::KeyEvent& evt) {
@@ -400,6 +448,8 @@ void MinecraftApplication::addSpotlight(const Ogre::String name, const Ogre::Rea
 	spotLight->setSpotlightRange(Ogre::Degree(180), Ogre::Degree(180));
 
 }
+
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include "windows.h"
