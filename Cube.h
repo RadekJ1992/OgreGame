@@ -2,6 +2,7 @@
 #define __Cube_h_
 #pragma once
 #pragma message ("Cube object is defined")
+#include "NewMOC.h"
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>

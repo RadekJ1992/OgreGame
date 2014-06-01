@@ -85,16 +85,26 @@ void MinecraftApplication::createWorld() {
 //-------------------------------------------------------------------------------------
 void MinecraftApplication::createScene(void)
 {
-	Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
-	Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(16);
+	//Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
+	//Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(16);
+
+	Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_NONE);
+	//Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(16);
+
+	//createWorld();
 	
-	createWorld();
-	/*CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 10, 30);
-	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 35, 55);
-	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 , 10, 30);
-	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 35, 30);
-	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 35, 55);
-	*/
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 15, 30);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 15, 55);
+	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 ,15, 30);
+	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 40, 30);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 15, 55);
+
+		CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 15, 30);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 15, 55);
+	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 ,15, 30);
+	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 40, 30);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 66, 95);
+	
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	
@@ -103,6 +113,13 @@ void MinecraftApplication::createScene(void)
 	addSpotlight("spotLight3", 0, 250.0);
 	addSpotlight("spotLight4", -250.0, 0);
 
+	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
+	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 1000, 1000, 20, 20, true, 1, 10, 10, Ogre::Vector3::UNIT_Z);
+
+	Ogre::Entity* entGround = mSceneMgr->createEntity("GroundEntity", "ground");
+	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
+	entGround->setMaterialName("Examples/BumpyMetal");
+	entGround->setCastShadows(false);
 	// Main character
 	hero = new Character ("RoboOgre", mSceneMgr, mCamera);
 
@@ -208,13 +225,13 @@ bool MinecraftApplication::keyPressed(const OIS::KeyEvent& evt)
 			mDirection.x = mMove;
 			break;
  
-		case OIS::KC_PGDOWN:
-		case OIS::KC_E:
-			mDirection.y = -mMove;
-			break;
+		//case OIS::KC_PGDOWN:
+		//case OIS::KC_E:
+		//	mDirection.y = -mMove;
+			//break;
  
-		case OIS::KC_PGUP:
-		case OIS::KC_Q:
+		//case OIS::KC_PGUP:
+	//	case OIS::KC_Q:
 		case OIS::KC_SPACE:
 			
 			if(hero->grounded)
@@ -261,8 +278,8 @@ bool MinecraftApplication::keyReleased(const OIS::KeyEvent& evt) {
 			mDirection.y = 0;
 			break;
  
-		case OIS::KC_PGUP:
-		case OIS::KC_Q:
+		//case OIS::KC_PGUP:
+		//case OIS::KC_Q:
 		case OIS::KC_SPACE:
 			mDirection.y = 0;
 			break;
