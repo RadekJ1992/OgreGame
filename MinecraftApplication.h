@@ -56,6 +56,10 @@ protected:
 	Ogre::Vector3 mDirection;
 	Ogre::Real mMove;
 private:
+	Ogre::Real mouseX;
+	Ogre::Real mouseY;
+	Ogre::Real mouseZ;
+	Ogre::Plane* mPlane;
 	void addSpotlight(const Ogre::String name, const Ogre::Real xPos, const Ogre::Real zPos);
 };
 

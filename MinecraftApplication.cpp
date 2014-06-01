@@ -99,7 +99,7 @@ void MinecraftApplication::createScene(void)
 	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 40, 30);
 	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 15, 55);
 
-		CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 15, 30);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 15, 30);
 	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 15, 55);
 	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 ,15, 30);
 	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 40, 30);
@@ -113,8 +113,8 @@ void MinecraftApplication::createScene(void)
 	addSpotlight("spotLight3", 0, 250.0);
 	addSpotlight("spotLight4", -250.0, 0);
 
-	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 1000, 1000, 20, 20, true, 1, 10, 10, Ogre::Vector3::UNIT_Z);
+	mPlane = new Ogre::Plane(Ogre::Vector3::UNIT_Y, 0);
+	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, *mPlane, 1000, 1000, 20, 20, true, 1, 10, 10, Ogre::Vector3::UNIT_Z);
 
 	Ogre::Entity* entGround = mSceneMgr->createEntity("GroundEntity", "ground");
 	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entGround);
@@ -291,6 +291,30 @@ bool MinecraftApplication::keyReleased(const OIS::KeyEvent& evt) {
 			}
 			break;
 
+		case OIS::KC_1:
+			{
+			CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, mouseX, mouseY, mouseZ);
+			//CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 0, 0, 0);
+			//WoodenCube* newCube = new WoodenCube(*mSceneMgr, 0,0,0);
+			}
+			break;
+			
+		case OIS::KC_2:
+			CubeFactory::getInstance().create("WaterCube", *mSceneMgr, mouseX, mouseY, mouseZ);
+			break;
+
+		case OIS::KC_3:
+			CubeFactory::getInstance().create("FireCube", *mSceneMgr, mouseX, mouseY, mouseZ);
+			break;
+
+		case OIS::KC_4:
+			CubeFactory::getInstance().create("MetalCube", *mSceneMgr, mouseX, mouseY, mouseZ);
+			break;
+
+		case OIS::KC_5:
+			CubeFactory::getInstance().create("GoldCube", *mSceneMgr, mouseX, mouseY, mouseZ);
+			break;
+
 		default:
 			break;
 	}
@@ -300,7 +324,42 @@ bool MinecraftApplication::keyReleased(const OIS::KeyEvent& evt) {
 
 bool MinecraftApplication::mouseMoved(const OIS::MouseEvent& arg)
 {
+	Ogre::Real screenWidth = Ogre::Root::getSingleton().getAutoCreatedWindow()->getWidth();
+	Ogre::Real screenHeight = Ogre::Root::getSingleton().getAutoCreatedWindow()->getHeight();
  
+   // convert to 0-1 offset
+	Ogre::Real offsetX = arg.state.X.abs / screenWidth;
+	 Ogre::Real offsetY = arg.state.Y.abs / screenHeight;
+ 
+   // set up the ray
+	Ogre::Ray mouseRay = mCamera->getCameraToViewportRay(offsetX, offsetY);
+ 
+   // check if the ray intersects our plane
+   // intersects() will return whether it intersects or not (the bool value) and
+   // what distance (the Real value) along the ray the intersection is
+   std::pair<bool, Ogre::Real> result = mouseRay.intersects(*mPlane);
+ 
+    if(result.first) {
+           // if the ray intersect the plane, we have a distance value
+           // telling us how far from the ray origin the intersection occurred.
+           // the last thing we need is the point of the intersection.
+           // Ray provides us getPoint() function which returns a point
+           // along the ray, supplying it with a distance value.
+ 
+           // get the point where the intersection is
+       Ogre::Vector3 point = mouseRay.getPoint(result.second);
+	   mouseX = point.x;
+	   mouseY = point.y;
+	   mouseZ = point.z;
+	}
+	/*Ogre::Viewport* vp = mSceneMgr->getCurrentViewport();
+
+	mouseX = arg.state.X.abs/  Ogre::Real(vp->getActualWidth());
+	mouseY = arg.state.Y.abs/  Ogre::Real(vp->getActualHeight());
+	*/
+	//mouseX = arg.state.X.rel;
+	//mouseY = arg.state.Y.rel;
+	//mouseZ = arg.state.Z.rel;
 	// Update SdkTrays with the mouse motion
 	mTrayMgr->injectMouseMove(arg);
  
@@ -421,7 +480,7 @@ bool MinecraftApplication::mousePressed(const OIS::MouseEvent& arg, OIS::MouseBu
 		mTrayMgr->hideCursor();
  
 		bRMouseDown = true;
-	}
+	} 
  
 	return true;
 }
