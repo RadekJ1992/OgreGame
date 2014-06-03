@@ -4,7 +4,6 @@
 #include "Cube.h"
 
 class Character {
- // Attributes ------------------------------------------------------------------------------
      protected:
          Ogre::SceneNode *mMainNode; // Main character node
          Ogre::SceneNode *mSightNode; // "Sight" node - The character is supposed to be looking here

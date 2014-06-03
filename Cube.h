@@ -2,7 +2,6 @@
 #define __Cube_h_
 #pragma once
 #pragma message ("Cube object is defined")
-#include "NewMOC.h"
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
@@ -21,12 +20,14 @@ public:
 	Ogre::SceneNode* getCubeNode(void);
 	Ogre::Entity* getCubeEntity(void);
 	Ogre::AxisAlignedBox getBoundingBox(void);
-	virtual void accept(CubeVisitor& cV) = 0;
+	//virtual void accept(CubeVisitor& cV) = 0;
 	void ground(Ogre::SceneManager& mSceneMgr);
 protected:
 	Ogre::SceneNode* _cubeNode;
 	Ogre::Entity* _cubeEntity;
 private:
+	Ogre::SceneManager* _mSceneMgr;
+	std::string _name;
 	Ogre::Vector3 getEntityCenter(Ogre::Entity& _entity);
 	std::vector<std::string> Cube::split(const std::string &s, char delim, std::vector<std::string> &elems);
 	std::vector<std::string> Cube::split(const std::string &s, char delim);
@@ -40,7 +41,7 @@ class GoldCube :
 public:
 	GoldCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~GoldCube(void);
-	void accept(CubeVisitor& cV);
+	//void accept(CubeVisitor& cV);
 };
 
 class MetalCube :
@@ -49,7 +50,7 @@ class MetalCube :
 public:
 	MetalCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~MetalCube(void);
-	void accept(CubeVisitor& cV);
+	//void accept(CubeVisitor& cV);
 };
 
 class FireCube :
@@ -58,7 +59,7 @@ class FireCube :
 public:
 	FireCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~FireCube(void);
-	void accept(CubeVisitor& cV);
+	//void accept(CubeVisitor& cV);
 };
 
 class WaterCube :
@@ -67,7 +68,7 @@ class WaterCube :
 public:
 	WaterCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~WaterCube(void);
-	void accept(CubeVisitor& cV);
+	//void accept(CubeVisitor& cV);
 };
 
 class WoodenCube :
@@ -76,9 +77,9 @@ class WoodenCube :
 public:
 	WoodenCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~WoodenCube(void);
-	void accept(CubeVisitor& cV);
+	//void accept(CubeVisitor& cV);
 };
-
+/*
 class CubeVisitor
 {
 public:
@@ -95,18 +96,14 @@ protected:
 private:
 
 };
-
+*/
 class CubeFactory
 {
 public:
 	static CubeFactory& getInstance(void);
-	//typedef Cube* (*CreateCubeFun)(const Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	//bool RegisterCube(std::string, CreateCubeFun fun);
 	Cube* create(std::string, Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 
 private:
-	//typedef std::map<std::string, CreateCubeFun> Callbacks;
-	//Callbacks callbacks_;
 
 	CubeFactory(void);
 	~CubeFactory(void);

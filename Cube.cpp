@@ -5,28 +5,20 @@ Ogre::Vector3 Cube::getEntityCenter(Ogre::Entity& _entity)
 {
    Ogre::AxisAlignedBox boundingBox = _entity.getBoundingBox();
    Ogre::Vector3 point = ( boundingBox.getMaximum() - boundingBox.getMinimum() ) /2;
-   //Ogre::Vector3 topCenter(boundingBox.getMinimum().x-point.x/2, boundingBox.getMaximum().y, boundingBox.getMaximum().z+point.z/2);
    return point;
 }
 
 Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z) {
-	//Ogre::SceneNode::ChildNodeIterator it = mSceneMgr.getRootSceneNode()->getChildIterator();
 	Ogre::SceneManager::MovableObjectIterator it= mSceneMgr.getMovableObjectIterator("Entity");
 	Ogre::Real lowestY = 10;
+	_mSceneMgr = &mSceneMgr;
 
 	while (it.hasMoreElements())
 	{
-		//Ogre::Node* node_ = it.getNext();
-
-		//std::string _name=node_->getName();
 		std::string _name = it.getNext()->getName();
 
 		if (_name != "GroundEntity" && _name != "RoboOgre") {
 			try {
-				//throw 1;   // throw an error
-				//Ogre::SceneNode* sNode=mSceneMgr.getSceneNode(_name);
-				//Ogre::Entity* sEntity=mSceneMgr.getEntity(_name);
-
 				std::vector<std::string> _temp = split(_name, ':');
 				// 0:'Cube' 1:'x' 2:'y' 3:'z'
 				int _tempX;
@@ -38,7 +30,6 @@ Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real
 				int _tempZ;
 				std::istringstream iss3(_temp[3]);
 				iss3 >> _tempZ;
-				//if ((getEntityCenter(*sEntity).x > (x - 25)) && (getEntityCenter(*sEntity).x < (x + 25)) && (getEntityCenter(*sEntity).z > (z - 25)) && (getEntityCenter(*sEntity).z < (z + 25)))
 				if (_tempX > (x - 25) && _tempX < (x + 25) && _tempZ > (z - 25) && _tempZ < (z + 25))	
 				{
 					if (lowestY <= _tempY) lowestY = _tempY+25;
@@ -47,7 +38,7 @@ Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real
 			catch (...) {    }
 		}
 	}
-	std::string _name = "Cube:"+Ogre::StringConverter::toString(x,6,0, '_',0) +":"+ Ogre::StringConverter::toString(lowestY,6,0, '_',0)+":"+Ogre::StringConverter::toString(z,6,0, '_',0);
+	_name = "Cube:"+Ogre::StringConverter::toString(x,6,0, '_',0) +":"+ Ogre::StringConverter::toString(lowestY,6,0, '_',0)+":"+Ogre::StringConverter::toString(z,6,0, '_',0);
 
 	_cubeEntity = mSceneMgr.createEntity(_name, "cube.mesh");
 
@@ -62,60 +53,7 @@ Cube::Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real
 	_cubeNode->setPosition(x, lowestY, z);
 
 	_cubeNode->scale(CUBE_SCALE, CUBE_SCALE, CUBE_SCALE);
-	/*
-	//Ogre::SceneNode::ChildNodeIterator it = mSceneMgr.getRootSceneNode()->getChildIterator();
-	Ogre::SceneManager::MovableObjectIterator it= mSceneMgr.getMovableObjectIterator("Entity");
-	Ogre::Real lowestY = 0;
 	
-	while (it.hasMoreElements())
-	{
-		//Ogre::Node* node_ = it.getNext();
-
-		//std::string _name=node_->getName();
-		std::string _name = it.getNext()->getName();
-
-		try {
-			//throw 1;   // throw an error
-			//Ogre::SceneNode* sNode=mSceneMgr.getSceneNode(_name);
-			//Ogre::Entity* sEntity=mSceneMgr.getEntity(_name);
-
-			std::vector<std::string> _temp = split(_name, ':');
-			// 0:'Cube' 1:'x' 2:'y' 3:'z'
-			int _tempX;
-			std::istringstream iss1(_temp[1]);
-			iss1 >> _tempX;
-			int _tempY;
-			std::istringstream iss2(_temp[2]);
-			iss2 >> _tempY;
-			int _tempZ;
-			std::istringstream iss3(_temp[3]);
-			iss3 >> _tempZ;
-			//if ((getEntityCenter(*sEntity).x > (x - 25)) && (getEntityCenter(*sEntity).x < (x + 25)) && (getEntityCenter(*sEntity).z > (z - 25)) && (getEntityCenter(*sEntity).z < (z + 25)))
-			if (_tempX > (x - 25) && _tempX < (x + 25) && _tempZ > (z - 25) && _tempZ < (z + 25))	
-			{
-				if (lowestY <= _tempY) lowestY = _tempY+25;
-			}
-		}
-		catch (...) {    }
-
-	}
-	std::string _name = "Cube:"+Ogre::StringConverter::toString(x,6,0, '_',0) +":"+ Ogre::StringConverter::toString(lowestY,6,0, '_',0)+":"+Ogre::StringConverter::toString(z,6,0, '_',0);
-	//std::string _name = "Cube:"+Ogre::StringConverter::toString(x,6,0, '_',0) +":"+ Ogre::StringConverter::toString(y,6,0, '_',0)+":"+Ogre::StringConverter::toString(z,6,0, '_',0);
-
-	_cubeEntity = mSceneMgr.createEntity(_name, "cube.mesh");
-
-	_cubeNode = mSceneMgr.getRootSceneNode()->createChildSceneNode();
-
-	_cubeNode->attachObject(_cubeEntity);
-
-	_cubeNode->showBoundingBox(true);
-
-	_cubeEntity->setCastShadows(true);
-
-	_cubeNode->setPosition(x, y, z);
-
-	_cubeNode->scale(CUBE_SCALE, CUBE_SCALE, CUBE_SCALE);
-	*/
 }
 
 
@@ -136,10 +74,13 @@ std::vector<std::string> Cube::split(const std::string &s, char delim) {
 }
 
 
-Cube::~Cube(void) {
-
+Cube::~Cube() {
+	_cubeNode->detachAllObjects ();
+    delete _cubeEntity;
+    _cubeNode->removeAndDestroyAllChildren ();
+    _mSceneMgr->destroySceneNode(_name);
 }
-
+/*
 void Cube::ground(Ogre::SceneManager& mSceneMgr) {
 	
 	Ogre::SceneManager::MovableObjectIterator it= mSceneMgr.getMovableObjectIterator("Entity");
@@ -157,15 +98,10 @@ void Cube::ground(Ogre::SceneManager& mSceneMgr) {
 	iss3 >> z;
 	while (it.hasMoreElements())
 	{
-		//Ogre::Node* node_ = it.getNext();
-
-		//std::string _name=node_->getName();
+		
 		std::string _name = it.getNext()->getName();
 
 		try {
-			//throw 1;   // throw an error
-			//Ogre::SceneNode* sNode=mSceneMgr.getSceneNode(_name);
-			//Ogre::Entity* sEntity=mSceneMgr.getEntity(_name);
 			std::vector<std::string> _temp = split(_name, ':');
 			// 0:'Cube' 1:'x' 2:'y' 3:'z'
 			int _tempX;
@@ -177,7 +113,6 @@ void Cube::ground(Ogre::SceneManager& mSceneMgr) {
 			int _tempZ;
 			std::istringstream iss3(_temp[3]);
 			iss3 >> _tempZ;
-			//if ((getEntityCenter(*sEntity).x > (x - 25)) && (getEntityCenter(*sEntity).x < (x + 25)) && (getEntityCenter(*sEntity).z > (z - 25)) && (getEntityCenter(*sEntity).z < (z + 25)))
 			if (_tempX > (x - 25) && _tempX < (x + 25) && _tempZ > (z - 25) && _tempZ < (z + 25))	
 			{
 				if (lowestY <= _tempY) lowestY = _tempY+25;
@@ -189,16 +124,16 @@ void Cube::ground(Ogre::SceneManager& mSceneMgr) {
 
 	}
 }
-
-Ogre::SceneNode* Cube::getCubeNode(void) {
+*/
+Ogre::SceneNode* Cube::getCubeNode() {
 	return _cubeNode;
 }
 
-Ogre::Entity* Cube::getCubeEntity(void) {
+Ogre::Entity* Cube::getCubeEntity() {
 	return _cubeEntity;
 }
 
-Ogre::AxisAlignedBox Cube::getBoundingBox(void) {
+Ogre::AxisAlignedBox Cube::getBoundingBox() {
 	return _cubeEntity->getBoundingBox();	
 }
 
@@ -208,13 +143,13 @@ FireCube::FireCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Og
 }
 
 
-FireCube::~FireCube(void)
+FireCube::~FireCube()
 {
 }
-
+/*
 void FireCube::accept(CubeVisitor& cV) {
 	cV.visit(*this);
-}
+}*/
 
 GoldCube::GoldCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z) : Cube(mSceneMgr, x, y, z)
 {
@@ -222,13 +157,13 @@ GoldCube::GoldCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Og
 }
 
 
-GoldCube::~GoldCube(void)
+GoldCube::~GoldCube()
 {
 }
-
+/*
 void GoldCube::accept(CubeVisitor& cV) {
 	cV.visit(*this);
-}
+}*/
 
 MetalCube::MetalCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z) : Cube(mSceneMgr, x, y, z)
 {
@@ -236,13 +171,13 @@ MetalCube::MetalCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, 
 }
 
 
-MetalCube::~MetalCube(void)
+MetalCube::~MetalCube()
 {
 }
-
+/*
 void MetalCube::accept(CubeVisitor& cV) {
 	cV.visit(*this);
-}
+}*/
 
 
 
@@ -253,13 +188,13 @@ WaterCube::WaterCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, 
 }
 
 
-WaterCube::~WaterCube(void)
+WaterCube::~WaterCube()
 {
 }
-
+/*
 void WaterCube::accept(CubeVisitor& cV) {
 	cV.visit(*this);
-}
+}*/
 
 WoodenCube::WoodenCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z) : Cube(mSceneMgr, x, y, z)
 {
@@ -268,22 +203,22 @@ WoodenCube::WoodenCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y
 }
 
 
-WoodenCube::~WoodenCube(void)
+WoodenCube::~WoodenCube()
 {
 }
-
+/*
 void WoodenCube::accept(CubeVisitor& cV) {
 	cV.visit(*this);
-}
+}*/
 
-
+/*
 void CubeVisitor::visit(WoodenCube& wC) {}
 void CubeVisitor::visit(MetalCube& mC) {}
 void CubeVisitor::visit(WaterCube& wC) {}
 void CubeVisitor::visit(FireCube& fC) {}
 void CubeVisitor::visit(GoldCube& gC) {}
-
-CubeFactory& CubeFactory::getInstance(void)
+*/
+CubeFactory& CubeFactory::getInstance()
 {
 	static CubeFactory instance; 
 	return instance;
@@ -304,13 +239,12 @@ Cube* CubeFactory::create(std::string s, Ogre::SceneManager& mSceneMgr, Ogre::Re
 	} else return nullptr;
 }
 
-CubeFactory::CubeFactory(void)
+CubeFactory::CubeFactory()
 {
-
 }
 
 
-CubeFactory::~CubeFactory(void)
+CubeFactory::~CubeFactory()
 {
 }
 

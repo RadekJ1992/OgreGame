@@ -45,14 +45,14 @@ protected:
 	Ogre::SceneNode *mMainNode;
 	Character *hero;
 	Ogre::SceneNode *mCurrentObject;
-	Ogre::RaySceneQuery* mRayScnQuery;	//pointer to our ray scene query
-	bool bLMouseDown, bRMouseDown;	//true if mouse buttons are held down
+	Ogre::RaySceneQuery* mRayScnQuery;
+	bool bLMouseDown, bRMouseDown;
 	virtual bool keyPressed( const OIS::KeyEvent& evt );
 	virtual bool keyReleased( const OIS::KeyEvent& evt );
 	virtual bool mouseMoved(const OIS::MouseEvent& arg);
 	virtual bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
 	virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
-	Ogre::Real mRotate;          // The rotate constant
+	Ogre::Real mRotate;
 	Ogre::Vector3 mDirection;
 	Ogre::Real mMove;
 private:
@@ -63,4 +63,4 @@ private:
 	void addSpotlight(const Ogre::String name, const Ogre::Real xPos, const Ogre::Real zPos);
 };
 
-#endif // #ifndef __TutorialApplication_h_
+#endif 

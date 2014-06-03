@@ -4,13 +4,11 @@
 Character::Character (Ogre::String name, Ogre::SceneManager *sceneMgr, Ogre::Camera *camera):mName(name), mSceneMgr(sceneMgr), 
 	mCamera(camera), grounded(true) {
    
-    // Setup basic node structure to handle 3rd person cameras
     mMainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode (mName);
     mSightNode = mMainNode->createChildSceneNode (mName + "_sight", Ogre::Vector3 (0, 0, -100));
     mCameraNode = mMainNode->createChildSceneNode (mName + "_camera", Ogre::Vector3 (0, 100, 250));
 	mHeroNode = mMainNode->createChildSceneNode (mName + "_hero", Ogre::Vector3 (0, 0, 0));
 
-    // Give this character a shape :)
     mEntity = mSceneMgr->createEntity (mName, "robot.mesh");
 
     mHeroNode->attachObject (mEntity);
@@ -65,7 +63,6 @@ void Character::ground(Ogre::Real elapsedTime) {
 	
 }
  
-// Change visibility - Useful for 1st person view ;)
 void Character::setVisible (bool visible) {
     mMainNode->setVisible (visible);
 }
@@ -81,7 +78,6 @@ bool Character::isCollision(const Ogre::Vector3& position, const Ogre::Vector3& 
 	if(result.size() > 0)
 		for (itr = result.begin(); itr != result.end(); itr++) {
 			if (itr->movable->getName().compare("RoboOgre")!=0 && itr->movable->getName().compare("PlayerCam")!=0 && itr->movable->getName().find("Cube") != Ogre::String::npos && itr->distance < mHeroLength/2 ) {
-				//colObj = static_cast<Ogre::MovableObject*>(itr->movable);
 				return true;
 			}
 		}
