@@ -20,7 +20,6 @@ public:
 	Ogre::SceneNode* getCubeNode(void);
 	Ogre::Entity* getCubeEntity(void);
 	Ogre::AxisAlignedBox getBoundingBox(void);
-	//virtual void accept(CubeVisitor& cV) = 0;
 	void ground(Ogre::SceneManager& mSceneMgr);
 protected:
 	Ogre::SceneNode* _cubeNode;
@@ -41,7 +40,6 @@ class GoldCube :
 public:
 	GoldCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~GoldCube(void);
-	//void accept(CubeVisitor& cV);
 };
 
 class MetalCube :
@@ -50,7 +48,6 @@ class MetalCube :
 public:
 	MetalCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~MetalCube(void);
-	//void accept(CubeVisitor& cV);
 };
 
 class FireCube :
@@ -59,7 +56,6 @@ class FireCube :
 public:
 	FireCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~FireCube(void);
-	//void accept(CubeVisitor& cV);
 };
 
 class WaterCube :
@@ -68,7 +64,6 @@ class WaterCube :
 public:
 	WaterCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~WaterCube(void);
-	//void accept(CubeVisitor& cV);
 };
 
 class WoodenCube :
@@ -77,26 +72,8 @@ class WoodenCube :
 public:
 	WoodenCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	~WoodenCube(void);
-	//void accept(CubeVisitor& cV);
 };
-/*
-class CubeVisitor
-{
-public:
-	CubeVisitor(void);
-	virtual ~CubeVisitor(void);
 
-	void visit(WoodenCube& wC);
-	void visit(MetalCube& mC);
-	void visit(WaterCube& wC);
-	void visit(FireCube& fC);
-	void visit(GoldCube& gC);
-protected:
-
-private:
-
-};
-*/
 class CubeFactory
 {
 public:
