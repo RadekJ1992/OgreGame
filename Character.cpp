@@ -4,7 +4,7 @@
 Character::Character (Ogre::String name, Ogre::SceneManager *sceneMgr, Ogre::Camera *camera):mName(name), mSceneMgr(sceneMgr), 
 	mCamera(camera), grounded(true) {
    
-    mMainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode (mName, Ogre::Vector(0, 100, 0));
+    mMainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode (mName, Ogre::Vector3(0, 100, 0));
     mSightNode = mMainNode->createChildSceneNode (mName + "_sight", Ogre::Vector3 (0, 0, -100));
     mCameraNode = mMainNode->createChildSceneNode (mName + "_camera", Ogre::Vector3 (0, 100, 250));
 	mHeroNode = mMainNode->createChildSceneNode (mName + "_hero", Ogre::Vector3 (0, 0, 0));
