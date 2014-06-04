@@ -16,20 +16,21 @@ class Cube
 {
 public:
 	Cube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	virtual ~Cube(void);
-	Ogre::SceneNode* getCubeNode(void);
-	Ogre::Entity* getCubeEntity(void);
-	Ogre::AxisAlignedBox getBoundingBox(void);
-	void ground(Ogre::SceneManager& mSceneMgr);
+	virtual ~Cube();
+	Ogre::SceneNode* getCubeNode();
+	Ogre::Entity* getCubeEntity();
+	Ogre::AxisAlignedBox getBoundingBox();
+	static std::vector<std::string> Cube::split(const std::string &s, char delim, std::vector<std::string> &elems);
+	static std::vector<std::string> Cube::split(const std::string &s, char delim);
 protected:
 	Ogre::SceneNode* _cubeNode;
 	Ogre::Entity* _cubeEntity;
 private:
+	void ground(Ogre::SceneManager& mSceneMgr);
+	Ogre::Vector3 getEntityCenter(Ogre::Entity& _entity);
 	Ogre::SceneManager* _mSceneMgr;
 	std::string _name;
-	Ogre::Vector3 getEntityCenter(Ogre::Entity& _entity);
-	std::vector<std::string> Cube::split(const std::string &s, char delim, std::vector<std::string> &elems);
-	std::vector<std::string> Cube::split(const std::string &s, char delim);
+	
 };
 
 
@@ -39,7 +40,7 @@ class GoldCube :
 {
 public:
 	GoldCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	~GoldCube(void);
+	~GoldCube();
 };
 
 class MetalCube :
@@ -47,7 +48,7 @@ class MetalCube :
 {
 public:
 	MetalCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	~MetalCube(void);
+	~MetalCube();
 };
 
 class FireCube :
@@ -55,7 +56,7 @@ class FireCube :
 {
 public:
 	FireCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	~FireCube(void);
+	~FireCube();
 };
 
 class WaterCube :
@@ -63,7 +64,7 @@ class WaterCube :
 {
 public:
 	WaterCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	~WaterCube(void);
+	~WaterCube();
 };
 
 class WoodenCube :
@@ -71,19 +72,19 @@ class WoodenCube :
 {
 public:
 	WoodenCube(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
-	~WoodenCube(void);
+	~WoodenCube();
 };
 
 class CubeFactory
 {
 public:
-	static CubeFactory& getInstance(void);
+	static CubeFactory& getInstance();
 	Cube* create(std::string, Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 
 private:
 
-	CubeFactory(void);
-	~CubeFactory(void);
+	CubeFactory();
+	~CubeFactory();
 
 	Cube* createWoodenCubeFun(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);
 	Cube* createMetalCubeFun(Ogre::SceneManager& mSceneMgr, Ogre::Real x, Ogre::Real y, Ogre::Real z);

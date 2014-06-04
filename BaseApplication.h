@@ -37,23 +37,23 @@ This source file is part of the
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener, OgreBites::SdkTrayListener
 {
 public:
-    BaseApplication(void);
-    virtual ~BaseApplication(void);
+    BaseApplication();
+    virtual ~BaseApplication();
 
-    virtual void go(void);
+    virtual void go();
 
 protected:
     virtual bool setup();
-    virtual bool configure(void);
-    virtual void chooseSceneManager(void);
-    virtual void createCamera(void);
-    virtual void createFrameListener(void);
-    virtual void createScene(void) = 0; // Override me!
-    virtual void destroyScene(void);
-    virtual void createViewports(void);
-    virtual void setupResources(void);
-    virtual void createResourceListener(void);
-    virtual void loadResources(void);
+    virtual bool configure();
+    virtual void chooseSceneManager();
+    virtual void createCamera();
+    virtual void createFrameListener();
+    virtual void createScene() = 0; // Override me!
+    virtual void destroyScene();
+    virtual void createViewports();
+    virtual void setupResources();
+    virtual void createResourceListener();
+    virtual void loadResources();
 
     // Ogre::FrameListener
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);

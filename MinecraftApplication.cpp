@@ -1,14 +1,16 @@
 ﻿#include "MinecraftApplication.h"
 
-MinecraftApplication::MinecraftApplication(void):bLMouseDown(false), bRMouseDown(false), mCurrentObject(0)
+#define TEST
+
+MinecraftApplication::MinecraftApplication():bLMouseDown(false), bRMouseDown(false), mCurrentObject(0)
 {
 }
-MinecraftApplication::~MinecraftApplication(void)
+MinecraftApplication::~MinecraftApplication()
 {
 	
 }
 
-void MinecraftApplication::createViewports(void)
+void MinecraftApplication::createViewports()
 {
 	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
 	vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
@@ -16,67 +18,78 @@ void MinecraftApplication::createViewports(void)
 }
 
 void MinecraftApplication::createWorld() {
-	for (int i = -500; i <= 500; i+=25) {
-		for (int j = -500; j <=500; j+=25) {
-			int randomizedNumber = std::rand()%5;
-			switch (randomizedNumber) {
-			case 4:
-				CubeFactory::getInstance().create("FireCube", *mSceneMgr, i , 0, j);
-				break;
-			case 3:
-				CubeFactory::getInstance().create("MetalCube", *mSceneMgr, i , 0, j);
-				break;
-			case 2: 
-				CubeFactory::getInstance().create("WaterCube", *mSceneMgr, i , 0, j);
-				break;
-			case 1:
-				CubeFactory::getInstance().create("GoldCube", *mSceneMgr, i , 0, j);
-				break;
-			case 0:
-			default:
-				CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, i , 0, j);
-				break;
-			}
-			int littleHillCreatorNumber = std::rand()%100;
-			if (littleHillCreatorNumber > 89) {
-				int anotherRandomizedNumber = std::rand()%5;
-			switch (anotherRandomizedNumber) {
-			case 4:
-				CubeFactory::getInstance().create("FireCube", *mSceneMgr, i , 25, j);
-				break;
-			case 3:
-				CubeFactory::getInstance().create("MetalCube", *mSceneMgr, i , 25, j);
-				break;
-			case 2: 
-				CubeFactory::getInstance().create("WaterCube", *mSceneMgr, i , 25, j);
-				break;
-			case 1:
-				CubeFactory::getInstance().create("GoldCube", *mSceneMgr, i , 25, j);
-				break;
-			case 0:
-			default:
-				CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, i , 25, j);
-				break;
-			}
-			}
-		}
-	}
+	//Z
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 110, 15, 10);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 135 , 15,10);
+	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 160 ,15, 10);
+	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 185 , 15, 10);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 135 , 15, 35);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 160 , 15, 60);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 110 , 15, 85);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 135 , 15,85);
+	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 160 ,15, 85);
+	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 185 , 15, 85);
+	/*//P
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 235 , 15, 10);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 235 , 15, 35);
+	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 235 ,15, 60);
+	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 235 , 15, 85);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 260 , 15, 60);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 260 , 15, 85);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 285 , 15,60);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 285 , 15, 85);
+	//R
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 310 , 15, 10);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 310 , 15, 35);
+	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 310 ,15, 60);
+	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 310 , 15, 85);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 235 , 15, 60);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 235 , 15, 85);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 360 , 15, 10);
+	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 360 , 15, 35);
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 260 , 15, 60);
+	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 260 , 15, 85);*/
+	
 }
-void MinecraftApplication::createScene(void)
+
+void MinecraftApplication::createScene()
 {
 	Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_NONE);
+#ifdef TEST
+	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10, 10, 10);
 
-	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 15, 30);
-	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 15, 55);
-	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 ,15, 30);
-	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 40, 30);
-	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 15, 55);
+	Ogre::SceneManager::MovableObjectIterator it= mSceneMgr->getMovableObjectIterator("Entity");
+	std::ofstream myfile;
+	myfile.open ("testLogs.txt", std::ios::out | std::ios::app );
 
-	CubeFactory::getInstance().create("WoodenCube", *mSceneMgr, 10 , 15, 30);
-	CubeFactory::getInstance().create("GoldCube", *mSceneMgr, 35 , 15, 55);
-	CubeFactory::getInstance().create("WaterCube", *mSceneMgr, 35 ,15, 30);
-	CubeFactory::getInstance().create("MetalCube", *mSceneMgr, 10 , 40, 30);
-	CubeFactory::getInstance().create("FireCube", *mSceneMgr, 10 , 66, 95);
+	try {
+		while (it.hasMoreElements())
+		{
+			std::string _name = it.getNext()->getName();
+
+			std::vector<std::string> inputResult = Cube::split(_name, ':');
+			std::vector<std::string> result;
+			result.push_back("Cube");
+			result.push_back("10");
+			result.push_back("10");
+			result.push_back("10");
+			// 0:'WoodenCube' 1:'x' 2:'y' 3:'z'
+			if (inputResult.at(0) == result.at(0) && inputResult.at(1) == result.at(1) && inputResult.at(2) == result.at(2) && inputResult.at(3) == result.at(3)) {
+				myfile << "CubeFactory::create pozytywnie przeszlo test\n";
+			} else {
+				myfile << "CubeFactory::create nie przeszlo testu. Oczekiwany wynik : WoodenCubeCube, 10, 10, 10/ Otrzymany wynik : " + inputResult.at(0) + ", " + inputResult.at(1) + ", " + inputResult.at(2) + ", " + inputResult.at(3) + "\n";
+			}
+
+			mSceneMgr->getRootSceneNode()->removeAllChildren();
+				//->removeChild("Cube:10:10:10");
+				//
+		}
+	} catch (...) {
+		myfile << "CubeFactory::create nie przeszlo testu - rzucony zostal wyjatek\n";
+	}
+	myfile.close();
+#endif
+	createWorld();
 	
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
@@ -97,7 +110,7 @@ void MinecraftApplication::createScene(void)
 
 }
 
-void MinecraftApplication::createFrameListener(void)
+void MinecraftApplication::createFrameListener()
 {
 	BaseApplication::createFrameListener();
 
@@ -425,7 +438,26 @@ extern "C" {
 #endif
 	{
 		MinecraftApplication app;
-		
+#ifdef TEST
+		remove("testLogs.txt");
+		std::ofstream myfile;
+		myfile.open ("testLogs.txt");
+		myfile << "Raport z testow jednostkowych:\n";
+
+		std::vector<std::string> result;
+		result.push_back("Cube");
+		result.push_back("1");
+		result.push_back("2");
+		result.push_back("3");
+		std::string input = "Cube:1:2:3";
+		std::vector<std::string> inputResult = Cube::split(input, ':');
+		if (inputResult.at(0) == result.at(0) && inputResult.at(1) == result.at(1) && inputResult.at(2) == result.at(2) && inputResult.at(3) == result.at(3)) {
+			myfile << "Cube::split pozytywnie przeszlo test\n";
+		} else {
+			myfile << "Cube::split nie przeszlo testu. Oczekiwany wynik : Cube, 1, 2, 3\nOtrzymany wynik : " + inputResult.at(0) + ", " + inputResult.at(1) + ", " + inputResult.at(2) + ", " + inputResult.at(3) + "\n";
+		}
+		myfile.close();
+#endif
 		try {
 			app.go();
 		} catch( Ogre::Exception& e ) {

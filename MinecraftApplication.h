@@ -22,14 +22,16 @@ This source file is part of the
 #include "Character.h"
 #include "OgreRoot.h"
 
+#include <iostream>
+#include <fstream>
+
 #pragma message ("MinecraftApplication object is defined")
 
 class MinecraftApplication : public BaseApplication
 {
 public:
-	MinecraftApplication(void);
-	virtual ~MinecraftApplication(void);
-	void createWorld();
+	MinecraftApplication();
+	virtual ~MinecraftApplication();
 
 	enum QueryFlags
 	{
@@ -37,11 +39,12 @@ public:
 	};
 
 protected:
-	virtual void createViewports(void);
-	virtual void createScene(void);
-	virtual void createFrameListener(void);
+	virtual void createViewports();
+	virtual void createScene();
+	virtual void createFrameListener();
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 	
+	void createWorld();
 	Ogre::SceneNode *mMainNode;
 	Character *hero;
 	Ogre::SceneNode *mCurrentObject;

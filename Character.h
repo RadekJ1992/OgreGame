@@ -20,7 +20,7 @@ class Character {
 		 Ogre::MovableObject* colObj;
      public:
 		 Character (Ogre::String name, Ogre::SceneManager *sceneMgr, Ogre::Camera *camera);
-		 ~Character(void);
+		 ~Character();
 
 		 virtual void move (Ogre::Real elapsedTime, Ogre::Vector3 direction, Ogre::Real rotation);
 		 virtual bool isCollision(const Ogre::Vector3& position, const Ogre::Vector3& direction);

@@ -17,7 +17,7 @@ This source file is part of the
 #include "BaseApplication.h"
 
 //-------------------------------------------------------------------------------------
-BaseApplication::BaseApplication(void)
+BaseApplication::BaseApplication()
     : mRoot(0),
     mCamera(0),
     mSceneMgr(0),
@@ -37,7 +37,7 @@ BaseApplication::BaseApplication(void)
 }
 
 //-------------------------------------------------------------------------------------
-BaseApplication::~BaseApplication(void)
+BaseApplication::~BaseApplication()
 {
 	//Fix for 1.9
 	if (mTrayMgr) delete mTrayMgr;
@@ -51,7 +51,7 @@ BaseApplication::~BaseApplication(void)
 }
 
 //-------------------------------------------------------------------------------------
-bool BaseApplication::configure(void)
+bool BaseApplication::configure()
 {
     // Show the configuration dialog and initialise the system
     // You can skip this and use root.restoreConfig() to load configuration
@@ -60,7 +60,7 @@ bool BaseApplication::configure(void)
     {
         // If returned true, user clicked OK so initialise
         // Here we choose to let the system create a default rendering window by passing 'true'
-        mWindow = mRoot->initialise(true, "TutorialApplication Render Window");
+        mWindow = mRoot->initialise(true, "OgreGame Render Window");
 
         return true;
     }
@@ -70,7 +70,7 @@ bool BaseApplication::configure(void)
     }
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::chooseSceneManager(void)
+void BaseApplication::chooseSceneManager()
 {
     // Get the SceneManager, in this case a generic one
     mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
@@ -79,7 +79,7 @@ void BaseApplication::chooseSceneManager(void)
     mSceneMgr->addRenderQueueListener(mOverlaySystem);
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::createCamera(void)
+void BaseApplication::createCamera()
 {
     // Create the camera
     mCamera = mSceneMgr->createCamera("PlayerCam");
@@ -93,7 +93,7 @@ void BaseApplication::createCamera(void)
     mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::createFrameListener(void)
+void BaseApplication::createFrameListener()
 {
     Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
     OIS::ParamList pl;
@@ -164,11 +164,11 @@ void BaseApplication::createFrameListener(void)
     mRoot->addFrameListener(this);
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::destroyScene(void)
+void BaseApplication::destroyScene()
 {
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::createViewports(void)
+void BaseApplication::createViewports()
 {
     // Create one viewport, entire window
     Ogre::Viewport* vp = mWindow->addViewport(mCamera);
@@ -179,7 +179,7 @@ void BaseApplication::createViewports(void)
         Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::setupResources(void)
+void BaseApplication::setupResources()
 {
     // Load resource paths from config file
     Ogre::ConfigFile cf;
@@ -204,17 +204,17 @@ void BaseApplication::setupResources(void)
     }
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::createResourceListener(void)
+void BaseApplication::createResourceListener()
 {
 
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::loadResources(void)
+void BaseApplication::loadResources()
 {
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 //-------------------------------------------------------------------------------------
-void BaseApplication::go(void)
+void BaseApplication::go()
 {
 #ifdef _DEBUG
     mResourcesCfg = "resources_d.cfg";
@@ -233,7 +233,7 @@ void BaseApplication::go(void)
     destroyScene();
 }
 //-------------------------------------------------------------------------------------
-bool BaseApplication::setup(void)
+bool BaseApplication::setup()
 {
     mRoot = new Ogre::Root(mPluginsCfg);
 
