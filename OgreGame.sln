@@ -5,12 +5,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreGame", "OgreGame\OgreGa
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Debug|Win32.ActiveCfg = Debug|Win32
 		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Debug|Win32.Build.0 = Debug|Win32
+		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Release|Any CPU.ActiveCfg = Release|Win32
+		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Release|Win32.ActiveCfg = Release|Win32
 		{314059BD-C86A-4ABD-AA33-EE8FD44C74FF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

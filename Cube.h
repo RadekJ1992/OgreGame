@@ -10,8 +10,6 @@
 #include <sstream>
 
 
-class CubeVisitor;
-
 class Cube
 {
 public:
